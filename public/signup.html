@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack - Sign Up</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #9abd0f;
+            background-image: url('images/gif3.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: backgroundFade 10s infinite alternate;
+        }
+
+        @keyframes backgroundFade {
+            0% {
+                filter: brightness(100%);
+            }
+
+            100% {
+                filter: brightness(80%);
+            }
+        }
+
+        .signup-container {
+            background-color: rgba(16, 15, 15, 0.27);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #0b0b0be8;
+            animation: slideIn 1s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .signup-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #d3cece14;
+            border-radius: 5px;
+            box-sizing: border-box;
+            opacity: 0;
+            animation: fadeInInput 2s ease-out forwards;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        @keyframes fadeInInput {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-container input:focus {
+            border-color: #e1dfdf18;
+            outline: none;
+            box-shadow: 0 0 10px rgba(25, 122, 48, 0.2);
+        }
+
+        .signup-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #121212;
+            border: none;
+            color: #fff;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeInButton 2.5s ease-out forwards;
+        }
+
+        @keyframes fadeInButton {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-container button:hover {
+            background-color: #2d333a9d;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-container .login-link {
+            text-align: center;
+            margin-top: 15px;
+            opacity: 0;
+            animation: fadeInLink 3s ease-out forwards;
+        }
+
+        @keyframes fadeInLink {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .signup-container .login-link a {
+            color: #09196b;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .signup-container .login-link a:hover {
+            text-decoration: underline;
+            color: #154bd6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signup-container">
+        <h2>EcoTrack Sign Up</h2>
+        <form id="signupForm">
+            <input type="text" id="username" name="username" placeholder="Username" required>
+            <input type="email" id="mailid" name="mailid" placeholder="Email" required>
+            <input type="password" id="password" name="password" placeholder="Password" required>
+            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="/login.html">Login here</a></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('signupForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const mailid = document.getElementById('mailid').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                alert('Passwords do not match!');
+                return;
+            }
+
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, mailid, password })
+            });
+
+            if (response.ok) {
+                alert('Signup successful! Redirecting to login...');
+                window.location.href = 'login.html';
+            } else {
+                alert('Signup failed!');
+            }
+        });
+    </script>
+</body>
+
+</html>

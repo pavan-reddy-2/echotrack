@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9); /* White background with transparency */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #2E8B57;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: bold;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .contact-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .contact-card {
+            width: 200px;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+            animation: slideUp 1s ease-out;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-card img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        .contact-card h2 {
+            font-size: 1.2rem;
+            color: #2E8B57;
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .contact-card a {
+            color: #2E8B57;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .contact-card a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .nav {
+            background-color: #004d40;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #00796b;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="home.html">Home</a>     
+        <a href="aboutus.html">About</a>
+        <a href="https://emissioncalculator-as4bhm5mg3xuxsaxkxfdyc.streamlit.app/">Emission-Calculator</a>
+        <a href="chal.html">Challenges and Reward</a>
+        <a href="donation.html">Donation</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="help.html">chat-support</a>
+    </nav>
+<body>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <img src="images/deppa.jpg" alt="Person 1">
+                <h2>Deepasha Shukla</h2>
+                <p>Email: <a href="mailto:deepashashukla@gmail.com">deepashashukla@gmail.com</a></p>
+            </div>
+            <div class="contact-card">
+                <img src="images/akila.jpg" alt="Person 2">
+                <h2>Akhila Anant Gouda</h2>
+                <p>Email: <a href="mailto:akhilagouda94@gmail.com">akhilagouda94@gmail.com</a></p>
+            </div>
+            <div class="contact-card">
+                <img src="images/saurabh.jpg" alt="Person 3">
+                <h2>Saurabh Kumar Gupta</h2>
+                <p>Email: <a href="mailto:guptasaurabh9162@gmail.com">guptasaurabh9162@gmail.com</a></p>
+            </div>
+            <div class="contact-card">
+                <img src="images/pavan.jpg" alt="Person 4">
+                <h2>Pavan Kumar Reddy</h2>
+                <p>Email: <a href="mailto:pavanreddy5024@gmail.com">pavanreddy5024@gmail.com</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

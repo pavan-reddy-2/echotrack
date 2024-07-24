@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrack Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #fffafa43;
+            background-image: url('images/bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.176);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            opacity: 0;
+            animation: slideUp 0.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            color: #28a745; /* Green color for the heading */
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        a {
+            display: block;
+            margin: 15px 0;
+            padding: 15px;
+            background-color: #09090a;
+            color: #fff;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1.2rem;
+        }
+
+        a i {
+            margin-right: 8px;
+        }
+
+        a:hover {
+            background-color: #c9cfd61f;
+            transform: scale(1.05);
+        }
+
+        button {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #28a745, #218838);
+            border: none;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.3s;
+            font-size: 1.1rem;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #218838, #1e7e34);
+            transform: scale(1.05);
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Welcome to EcoTrack</h1>
+        <a href="aboutus.html"><i class="fas fa-info-circle icon"></i> About Us</a>
+        <a href="https://emissioncalculator-as4bhm5mg3xuxsaxkxfdyc.streamlit.app/"><i class="fas fa-calculator icon"></i> Environment Impact Calculator</a>
+        <a href="help.html"><i class="fas fa-question-circle icon"></i> Chat-Support</a>
+        <a href="chal.html"><i class="fas fa-trophy icon"></i> Challenges & Rewards</a>
+        <a href="feedback.html"><i class="fas fa-comment-dots icon"></i> Feedback</a>
+        <a href="donation.html"><i class="fas fa-donate icon"></i> Donation</a>
+        <a href="contact.html"><i class="fas fa-envelope icon"></i> Contact Us</a>
+        <form id="impactForm" style="display: none;">
+            <input type="number" id="screenTime" placeholder="Screen Time in hours" required>
+            <button type="submit">Calculate Impact</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    
+</body>
+
+</html>

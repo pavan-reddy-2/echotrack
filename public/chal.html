@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenges & Rewards</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://www.w3schools.com/w3images/forest.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            animation: fadeInBody 2s ease-in;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: slideInContainer 1s ease-in-out;
+        }
+
+        h1 {
+            color: #2E8B57;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in;
+        }
+
+        h2 {
+            color: #2E8B57;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #2E8B57;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in;
+        }
+
+        .user-info,
+        .challenge-info,
+        #challenge-display,
+        #image-upload,
+        #other-challenges,
+        #leaderboard {
+            display: none;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .user-info p,
+        .challenge-info li {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .user-info p strong {
+            color: #2E8B57;
+        }
+
+        .challenge-info ul,
+        #other-challenges ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .challenge-info li,
+        #other-challenges li {
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #eaf6f1;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-in-out;
+        }
+
+        .challenge-info li:hover,
+        #other-challenges li:hover {
+            background-color: #d0f0e0;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .challenge-info li.active,
+        #other-challenges li.active {
+            background-color: #d0f0e0;
+            transform: scale(1.02);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInContainer {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .challenge-info li::before,
+        #other-challenges li::before {
+            content: "★";
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.2rem;
+            color: #2E8B57;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        .challenge-info li:hover::before,
+        #other-challenges li:hover::before {
+            opacity: 1;
+        }
+
+        #name-form {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #user-name-input {
+            padding: 8px;
+            margin-right: 10px;
+            font-size: 1rem;
+        }
+
+        #name-form button {
+            padding: 8px 16px;
+            font-size: 1rem;
+            background-color: #2E8B57;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #name-form button:hover {
+            background-color: #1c6d49;
+        }
+
+        #challenge-display button,
+        #image-upload button {
+            padding: 8px 16px;
+            font-size: 1rem;
+            background-color: #2E8B57;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #challenge-display button:hover,
+        #image-upload button:hover {
+            background-color: #1c6d49;
+        }
+
+        #image-upload input[type="file"] {
+            margin-top: 10px;
+        }
+
+        #rewards-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .coin-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        #rewards-earned {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2E8B57;
+        }
+
+        #leaderboard {
+            margin-top: 40px;
+        }
+
+        #leaderboard h2 {
+            text-align: center;
+        }
+
+        #leaderboard table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        #leaderboard th,
+        #leaderboard td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #leaderboard th {
+            background-color: #2E8B57;
+            color: white;
+        }
+
+        #leaderboard tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }        .nav {
+            background-color: #004d40;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #00796b;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .section {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="home.html">Home</a>     
+        <a href="aboutus.html">About</a>
+        <a href="https://emissioncalculator-as4bhm5mg3xuxsaxkxfdyc.streamlit.app/">Emission-Calculator</a>
+        <a href="chal.html">Challenges and Reward</a>
+        <a href="donation.html">Donation</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="help.html">chat-support</a>
+    </nav>
+<body>
+    <div id="rewards-container">
+        <img src="images/coin1.jpg" alt="Coin Icon" class="coin-icon">
+        <span id="rewards-earned">0</span> Points
+    </div>
+
+    <div class="container">
+        <h1>Your Dashboard</h1>
+
+        <form id="name-form">
+            <label for="user-name-input">Enter your name:</label>
+            <input type="text" id="user-name-input" placeholder="Your name" required>
+            <button type="submit">Give My Challenge</button>
+        </form>
+
+        <div id="challenge-display">
+            <h2>Random Challenge</h2>
+            <p id="challenge-text"></p>
+            <button id="confirm-challenge">I Completed the Challenge</button>
+        </div>
+
+        <div id="image-upload">
+            <h2>Upload Image</h2>
+            <input type="file" id="challenge-image" accept="image/*">
+            <button id="upload-image-button">Upload Image</button>
+            <div id="uploaded-image-container"></div>
+        </div>
+
+        <div id="other-challenges">
+            <h2>Upcoming Challenges</h2>
+            <ul id="challenges-list"></ul>
+        </div>
+
+        <div id="leaderboard">
+            <h2>Leaderboard</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-entries">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const challenges = [
+            "Reduce plastic usage for a week.",
+            "Plant a tree.",
+            "Cycle to work for a month.",
+            "Recycle all your paper waste for a week.",
+            "Switch to reusable bags for shopping.",
+            "Participate in a community clean-up.",
+            "Reduce water usage by 20% for a month.",
+            "Go vegetarian for a week.",
+            "Avoid single-use plastic bottles.",
+            "Reduce meat consumption by 50%.",
+            "Start a compost bin.",
+            "Use public transport for a month.",
+            "Switch to LED bulbs.",
+            "Reduce electricity usage by 15%.",
+            "Conduct an energy audit of your home."
+        ];
+
+        let rewards = 0;
+        let userName = '';
+        const rewardsDisplay = document.getElementById('rewards-earned');
+        const userNameInput = document.getElementById('user-name-input');
+        const nameForm = document.getElementById('name-form');
+        const challengeDisplay = document.getElementById('challenge-display');
+        const challengeText = document.getElementById('challenge-text');
+        const confirmChallengeButton = document.getElementById('confirm-challenge');
+        const imageUpload = document.getElementById('image-upload');
+        const challengeImage = document.getElementById('challenge-image');
+        const uploadImageButton = document.getElementById('upload-image-button');
+        const uploadedImageContainer = document.getElementById('uploaded-image-container');
+        const otherChallenges = document.getElementById('other-challenges');
+        const challengesList = document.getElementById('challenges-list');
+        const leaderboard = document.getElementById('leaderboard');
+        const leaderboardEntries = document.getElementById('leaderboard-entries');
+
+        function initializeLeaderboard() {
+            const leaderboardData = JSON.parse(localStorage.getItem('leaderboard')) || [];
+            leaderboardEntries.innerHTML = '';
+            leaderboardData.forEach(entry => {
+                const row = document.createElement('tr');
+                const nameCell = document.createElement('td');
+                const pointsCell = document.createElement('td');
+                nameCell.textContent = entry.userName;
+                pointsCell.textContent = entry.points;
+                row.appendChild(nameCell);
+                row.appendChild(pointsCell);
+                leaderboardEntries.appendChild(row);
+            });
+        }
+
+        function updateLeaderboard() {
+            const leaderboardData = JSON.parse(localStorage.getItem('leaderboard')) || [];
+            const existingUser = leaderboardData.find(entry => entry.userName === userName);
+            if (existingUser) {
+                existingUser.points = rewards;
+            } else {
+                leaderboardData.push({ userName, points: rewards });
+            }
+            leaderboardData.sort((a, b) => b.points - a.points);
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboardData));
+            initializeLeaderboard();
+        }
+
+        nameForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            userName = userNameInput.value;
+            const leaderboardData = JSON.parse(localStorage.getItem('leaderboard')) || [];
+            const existingUser = leaderboardData.find(entry => entry.userName === userName);
+            rewards = existingUser ? existingUser.points : 0;
+            rewardsDisplay.textContent = rewards;
+            nameForm.style.display = 'none';
+            displayRandomChallenge();
+            updateLeaderboard();
+            leaderboard.style.display = 'block';
+        });
+
+        function displayRandomChallenge() {
+            const randomChallenge = challenges[Math.floor(Math.random() * challenges.length)];
+            challengeText.textContent = randomChallenge;
+            challengeDisplay.style.display = 'block';
+        }
+
+        confirmChallengeButton.addEventListener('click', () => {
+            challengeDisplay.style.display = 'none';
+            imageUpload.style.display = 'block';
+        });
+
+        uploadImageButton.addEventListener('click', () => {
+            const file = challengeImage.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100%';
+                    img.style.maxWidth = '300px';
+                    img.style.marginTop = '10px';
+                    uploadedImageContainer.appendChild(img);
+                    rewards += 10;
+                    rewardsDisplay.textContent = rewards;
+                    imageUpload.style.display = 'none';
+                    showOtherChallenges();
+                    updateLeaderboard();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function showOtherChallenges() {
+            otherChallenges.style.display = 'block';
+            challengesList.innerHTML = '';
+            challenges.forEach((challenge, index) => {
+                const li = document.createElement('li');
+                li.textContent = challenge;
+                li.dataset.index = index;
+                challengesList.appendChild(li);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initializeLeaderboard);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+        }
+
+        .nav {
+            background-color: #004d40;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #00796b;
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 90%;
+            width: 400px; /* Set a maximum width for better responsiveness */
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px; /* Add space below the navbar */
+        }
+
+        .image-container {
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 100%; /* Ensure the image scales within the container */
+            max-width: 200px; /* Set a maximum width for the image */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .bank-details {
+            margin-top: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .details {
+            margin: 10px 0;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            img {
+                max-width: 150px; /* Adjust the image size for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="home.html">Home</a>     
+        <a href="aboutus.html">About</a>
+        <a href="https://emissioncalculator-as4bhm5mg3xuxsaxkxfdyc.streamlit.app/">Emission-Calculator</a>
+        <a href="chal.html">Challenges and Reward</a>
+        <a href="donation.html">Donation</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="help.html">chat-support</a>
+    </nav>
+    <div class="container">
+        <div class="image-container">
+            <img src="images/qrcode.jpg" alt="Donation Image">
+        </div>
+
+        <div class="bank-details">
+            <h2>Bank Details</h2>
+            <div class="details">
+                <p><strong>Bank Name:</strong> Paytm Payment Bank</p>
+                <p><strong>Account Number:</strong> 917231951970</p>
+                <p><strong>Account Holder:</strong> Saurabh Kumar Gupta</p>
+                <p><strong>IFSC Code:</strong> PYTM0123456</p>
+                <p><strong>Branch:</strong> Noida, Delhi</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

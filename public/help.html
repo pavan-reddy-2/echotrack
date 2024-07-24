@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoTrackBot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            color: #333;
+        }
+
+        #container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4caf50;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+        }
+
+        #initialPrompt {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #nameInput {
+            padding: 12px;
+            margin-right: 10px;
+            width: 60%;
+            border: 2px solid #4caf50;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        #nameInput:focus {
+            border-color: #388e3c;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #45a049, #1b5e20);
+            transform: scale(1.05);
+        }
+
+        #topicsList, #subtopicsList {
+            list-style: none;
+            padding: 0;
+        }
+
+        #topicsList li, #subtopicsList li {
+            cursor: pointer;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #topicsList li:hover, #subtopicsList li:hover {
+            background: #f1f8e9;
+            transform: scale(1.02);
+        }
+
+        #subTopicInfo {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f9fbe7;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #moreQueriesButton, #endChatButton {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        /* Card Styles */
+        .card {
+            background: linear-gradient(135deg, #c5e1a5, #a5d6a7);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+            color: #2e7d32;
+        }
+
+        .card p {
+            margin-bottom: 0;
+        }       .nav {
+            background-color: #004d40;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #00796b;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="home.html">Home</a>     
+        <a href="aboutus.html">About</a>
+        <a href="https://emissioncalculator-as4bhm5mg3xuxsaxkxfdyc.streamlit.app/">Emission-Calculator</a>
+        <a href="chal.html">Challenges and Reward</a>
+        <a href="donation.html">Donation</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="help.html">chat-support</a>
+    </nav>
+    
+<body>
+    <div id="container">
+        <h1>Welcome to EcoTrackBot!</h1>
+        <div id="initialPrompt">
+            <input type="text" id="nameInput" placeholder="What is your name?">
+            <button id="startButton">Start</button>
+        </div>
+        
+        <div id="chatBox" style="display: none;">
+            <div id="mainTopics">
+                <h2>Select a main topic to learn more:</h2>
+                <ul id="topicsList"></ul>
+            </div>
+            <div id="subTopics" style="display: none;">
+                <h2>Subtopics:</h2>
+                <ul id="subtopicsList"></ul>
+            </div>
+            <div id="subTopicInfo" style="display: none;">
+                <h2>Information:</h2>
+                <div id="infoText"></div>
+            </div>
+            <button id="moreQueriesButton" style="display: none;">Do you have more queries?</button>
+            <button id="endChatButton" style="display: none;">End Chat</button>
+        </div>
+    </div>
+
+    <script>
+        const bot = {
+            mainTopics: {
+                0: "Climate Change",
+                1: "Carbon Footprint",
+                2: "Pollution",
+                3: "Renewable Energy",
+                4: "Sustainability",
+                5: "Carbon Emission Reduction",
+                6: "Environmental Impact Assessment",
+                7: "Climate Adaptation and Mitigation",
+                8: "Education and Awareness",
+                9: "Exit"
+            },
+            subtopics: {
+                0: {
+                    0: ["Global Warming", "Global warming refers to the long-term rise in Earth's average surface temperature due to human activities, especially the emission of greenhouse gases."],
+                    1: ["Greenhouse Gases", "Greenhouse gases trap heat in the atmosphere and include carbon dioxide, methane, nitrous oxide, and fluorinated gases."],
+                    2: ["Temperature Trends", "Temperature trends show the long-term changes in global temperatures, often depicted through graphs showing increasing temperatures over decades."],
+                    3: ["Extreme Weather Events", "Extreme weather events include phenomena such as hurricanes, heatwaves, droughts, and floods, which are becoming more frequent and severe due to climate change."],
+                    4: ["Ice Melt and Sea Level Rise", "Ice melt from glaciers and polar ice caps contributes to sea level rise, which poses risks to coastal communities and ecosystems."],
+                    5: ["Climate Policy and Agreements", "International agreements like the Paris Agreement aim to limit global warming and reduce greenhouse gas emissions."],
+                    6: ["Climate Change Impacts on Ecosystems", "Climate change affects ecosystems through changes in species distribution, habitat loss, and disruptions in ecological balance."]
+                },
+                1: {
+                    0: ["Personal Carbon Footprint", "A personal carbon footprint is the total amount of greenhouse gases emitted by an individual through activities such as driving, energy use, and consumption."],
+                    1: ["Corporate Carbon Footprint", "A corporate carbon footprint measures the total greenhouse gas emissions produced by a company, including operations, supply chains, and products."],
+                    2: ["Product Carbon Footprint", "The carbon footprint of a product includes emissions from raw material extraction, manufacturing, transportation, use, and disposal."],
+                    3: ["Carbon Offset Programs", "Carbon offset programs allow individuals and businesses to compensate for their emissions by investing in projects that reduce or absorb greenhouse gases elsewhere."],
+                    4: ["Carbon Footprint Calculation", "Carbon footprint calculation involves measuring the total emissions associated with activities or products using tools and methodologies like lifecycle assessment."],
+                    5: ["Reduction Strategies", "Strategies to reduce carbon footprint include improving energy efficiency, using renewable energy, reducing waste, and making sustainable choices."],
+                    6: ["Carbon Footprint and Lifestyle Choices", "Lifestyle choices such as diet, transportation, and energy use significantly impact one's carbon footprint, and changes can lead to reductions in emissions."]
+                },
+                2: {
+                    0: ["Air Pollution", "Air pollution is caused by emissions from vehicles, industrial processes, and other sources, leading to harmful effects on human health and the environment."],
+                    1: ["Water Pollution", "Water pollution results from contaminants such as chemicals, waste, and plastics entering water bodies, affecting aquatic life and water quality."],
+                    2: ["Soil Pollution", "Soil pollution occurs when harmful substances like pesticides, heavy metals, and industrial waste contaminate the soil, impacting plant growth and health."],
+                    3: ["Noise Pollution", "Noise pollution refers to excessive or harmful levels of noise from sources like traffic, industry, and construction, which can affect human health and wildlife."]
+                },
+                3: {
+                    0: ["Solar Energy", "Solar energy is harnessed from the sun's rays and converted into electricity or heat using technologies such as solar panels and solar thermal systems."],
+                    1: ["Wind Energy", "Wind energy is generated by converting the kinetic energy of wind into electricity using wind turbines."],
+                    2: ["Hydropower", "Hydropower utilizes the energy of flowing water to generate electricity, typically through dams and water wheels."],
+                    3: ["Geothermal Energy", "Geothermal energy is derived from heat stored within the Earth and can be used for electricity generation or direct heating applications."],
+                    4: ["Biomass Energy", "Biomass energy comes from organic materials like wood, crop residues, and waste, which can be burned or processed to produce heat or electricity."],
+                    5: ["Ocean Energy", "Ocean energy includes tidal, wave, and ocean thermal energy, harnessed from the movement and temperature differences in ocean waters."],
+                    6: ["Renewable vs. Non-Renewable Energy", "Renewable energy sources can be replenished naturally and have lower environmental impacts compared to non-renewable sources like fossil fuels."]
+                },
+                4: {
+                    0: ["Circular Economy", "The circular economy is an economic model that emphasizes reducing waste, reusing materials, and recycling to create a closed-loop system that minimizes environmental impact."],
+                    1: ["Energy Efficiency Measures", "Energy efficiency measures include actions like improving insulation, using energy-efficient appliances, and optimizing energy use in buildings and industrial processes."],
+                    2: ["Sustainable Practices in Industry", "Sustainable practices in industry involve reducing emissions, conserving resources, and adopting cleaner technologies and processes."],
+                    3: ["Renewable Energy Integration", "Integrating renewable energy sources into the energy grid helps reduce reliance on fossil fuels and lowers greenhouse gas emissions."],
+                    4: ["Carbon Capture and Storage (CCS)", "CCS technology captures carbon dioxide emissions from industrial processes and stores them underground to prevent their release into the atmosphere."],
+                    5: ["Green Transportation Solutions", "Green transportation solutions include electric vehicles, efficient public transit systems, and alternative fuels that reduce environmental impact."],
+                    6: ["Advanced Recycling Methods", "Advanced recycling methods improve the efficiency and effectiveness of recycling processes, enabling the recovery and reuse of more materials."],
+                    7: ["Sustainable Materials", "Sustainable materials are those sourced and used in ways that have minimal environmental impact, such as renewable resources and recycled materials."]
+                },
+                5: {
+                    0: ["Energy Efficiency Measures", "Energy efficiency measures include actions like improving insulation, using energy-efficient appliances, and optimizing energy use in buildings and industrial processes."],
+                    1: ["Sustainable Practices in Industry", "Sustainable practices in industry involve reducing emissions, conserving resources, and adopting cleaner technologies and processes."],
+                    2: ["Renewable Energy Integration", "Integrating renewable energy sources into the energy grid helps reduce reliance on fossil fuels and lowers greenhouse gas emissions."],
+                    3: ["Carbon Capture and Storage (CCS)", "CCS technology captures carbon dioxide emissions from industrial processes and stores them underground to prevent their release into the atmosphere."],
+                    4: ["Green Transportation Solutions", "Green transportation solutions include electric vehicles, efficient public transit systems, and alternative fuels that reduce environmental impact."],
+                    5: ["Advanced Recycling Methods", "Advanced recycling methods improve the efficiency and effectiveness of recycling processes, enabling the recovery and reuse of more materials."],
+                    6: ["Sustainable Materials", "Sustainable materials are those sourced and used in ways that have minimal environmental impact, such as renewable resources and recycled materials."]
+                },
+                6: {
+                    0: ["Environmental Impact Assessment (EIA)", "An EIA is a process used to evaluate the potential environmental impacts of a proposed project or development before it is approved."],
+                    1: ["Life Cycle Assessment (LCA)", "LCA assesses the environmental impacts of a product throughout its entire life cycle, from raw material extraction to disposal."],
+                    2: ["Ecological Footprint", "The ecological footprint measures the environmental impact of human activities in terms of the amount of productive land and water required."],
+                    3: ["Carbon Footprint Analysis", "Carbon footprint analysis calculates the total greenhouse gas emissions associated with an activity, product, or organization."]
+                },
+                7: {
+                    0: ["Climate Adaptation", "Climate adaptation involves adjusting to the impacts of climate change to minimize harm and take advantage of potential opportunities."],
+                    1: ["Climate Mitigation", "Climate mitigation refers to efforts to reduce or prevent the emission of greenhouse gases to limit the extent of future climate change."],
+                    2: ["Resilient Infrastructure", "Resilient infrastructure is designed to withstand and recover from climate-related stresses and hazards, such as extreme weather events."],
+                    3: ["Community-Based Adaptation", "Community-based adaptation involves local communities taking action to adapt to climate change impacts based on their specific needs and conditions."]
+                },
+                8: {
+                    0: ["Environmental Education", "Environmental education aims to increase awareness and understanding of environmental issues and promote sustainable practices among individuals and communities."],
+                    1: ["Public Awareness Campaigns", "Public awareness campaigns are initiatives designed to inform and engage the public on environmental issues and encourage positive behavior changes."],
+                    2: ["Sustainability Reporting", "Sustainability reporting involves disclosing information about an organization's environmental, social, and economic performance to stakeholders."],
+                    3: ["Green Certifications and Labels", "Green certifications and labels provide information about the environmental performance and sustainability of products, services, and organizations."]
+                },
+                9: {
+                    0: ["Thank you for using EcoTrackBot!"]
+                }
+            },
+
+            startChat() {
+                document.getElementById('initialPrompt').style.display = 'none';
+                document.getElementById('chatBox').style.display = 'block';
+                this.displayMainTopics();
+            },
+            displayMainTopics() {
+                const topicsList = document.getElementById('topicsList');
+                topicsList.innerHTML = '';
+                for (const [key, value] of Object.entries(this.mainTopics)) {
+                    const li = document.createElement('li');
+                    li.textContent = value;
+                    li.dataset.id = key;
+                    li.onclick = () => this.displaySubtopics(key);
+                    topicsList.appendChild(li);
+                }
+            },
+            displaySubtopics(topicId) {
+                const subTopics = this.subtopics[topicId] || {};
+                const subtopicsList = document.getElementById('subtopicsList');
+                subtopicsList.innerHTML = '';
+                for (const [key, [title]] of Object.entries(subTopics)) {
+                    const li = document.createElement('li');
+                    li.textContent = title;
+                    li.dataset.id = key;
+                    li.dataset.topicId = topicId;
+                    li.onclick = () => this.showSubtopicInfo(topicId, key);
+                    subtopicsList.appendChild(li);
+                }
+                document.getElementById('mainTopics').style.display = 'none';
+                document.getElementById('subTopics').style.display = 'block';
+            },
+            showSubtopicInfo(mainTopicId, subtopicId) {
+                const subtopic = this.subtopics[mainTopicId][subtopicId] || [];
+                document.getElementById('infoText').textContent = subtopic[1] || 'No information available.';
+                document.getElementById('subTopicInfo').style.display = 'block';
+                document.getElementById('moreQueriesButton').style.display = 'block';
+                document.getElementById('endChatButton').style.display = 'block';
+            }
+        };
+
+        document.getElementById('startButton').addEventListener('click', () => {
+            const name = document.getElementById('nameInput').value.trim();
+            if (name) {
+                alert(`Hello, ${name}!`);
+                bot.startChat();
+            } else {
+                alert('Please enter your name.');
+            }
+        });
+
+        document.getElementById('moreQueriesButton').addEventListener('click', () => {
+            document.getElementById('subTopicInfo').style.display = 'none';
+            document.getElementById('moreQueriesButton').style.display = 'none';
+            document.getElementById('mainTopics').style.display = 'block';
+        });
+
+        document.getElementById('endChatButton').addEventListener('click', () => {
+            alert('Goodbye!');
+            document.getElementById('chatBox').style.display = 'none';
+            document.getElementById('initialPrompt').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

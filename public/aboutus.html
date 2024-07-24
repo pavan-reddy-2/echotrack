@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - EcoTrack</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            animation: fadeInBody 2s ease-in;
+        }
+
+        header {
+            background-color: #004d40;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1 1 30%;
+            min-width: 280px;
+        }
+
+        .section h2 {
+            color: #2E8B57;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #2E8B57;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            animation: slideIn 1s ease-in;
+        }
+
+        .section p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .data-table th, .data-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #2E8B57;
+            color: white;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            background-color: #004d40;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+        }
+
+        /* Navigation Bar Styling */
+        .nav {
+            background-color: #004d40;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .nav a:hover {
+            background-color: #00796b;
+            transform: scale(1.05);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .section {
+                flex-basis: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="home.html">Home</a>     
+        <a href="aboutus.html">About</a>
+        <a href="https://emissioncalculator-as4bhm5mg3xuxsaxkxfdyc.streamlit.app/">Emission-Calculator</a>
+        <a href="chal.html">Challenges and Reward</a>
+        <a href="donation.html">Donation</a>
+        <a href="contact.html">Contact</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="help.html">chat-support</a>
+    </nav>
+    <header>
+        <h1>About Us</h1>
+    </header>
+    <div class="container">
+        <section class="section">
+            <h2>Our Motto</h2>
+            <p>At EcoTrack, our primary mission is to address the environmental impact caused by digital activities and excessive screen time. With the growing reliance on technology in our everyday lives, it's crucial to understand and reduce the unsustainable behaviors contributing to our carbon footprint. We strive to offer innovative solutions that enhance awareness and encourage responsible digital habits.</p>
+            <p>Our motto revolves around creating a sustainable digital environment by promoting mindful usage of technology. Through our tools and resources, we aim to drive positive change and foster a greener, more eco-conscious society.</p>
+        </section>
+
+        <section class="section">
+            <h2>Environmental Impact of Digital Activities</h2>
+            <p>The rise of digital technology and screen time has a significant impact on the environment. Data centers that support cloud services, including email platforms, contribute to substantial energy consumption and CO2 emissions.</p>
+            <p>Here are some key statistics on carbon emissions from major digital services:</p>
+            <ul>
+                <li>Gmail produces approximately 1.2 billion kg of CO2 annually.</li>
+                <li>Top 5 Apps with High Carbon Emission Rates:</li>
+            </ul>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>App</th>
+                        <th>Annual CO2 Emission (kg)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Gmail</td>
+                        <td>1.2 billion kg</td>
+                    </tr>
+                    <tr>
+                        <td>Facebook</td>
+                        <td>800 million kg</td>
+                    </tr>
+                    <tr>
+                        <td>Instagram</td>
+                        <td>700 million kg</td>
+                    </tr>
+                    <tr>
+                        <td>WhatsApp</td>
+                        <td>500 million kg</td>
+                    </tr>
+                    <tr>
+                        <td>Zoom</td>
+                        <td>400 million kg</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>These figures highlight the urgent need for solutions that mitigate the environmental impact of our digital interactions.</p>
+        </section>
+
+        <section class="section">
+            <h2>About Our Project</h2>
+            <p>EcoTrack is designed to help individuals and organizations reduce their carbon footprint associated with digital activities. Our project provides a range of tools to track and analyze screen time and its environmental impact. By participating in challenges and using our carbon footprint calculator, users can actively work towards more sustainable digital habits.</p>
+            <p>Key Features of EcoTrack:</p>
+            <ul>
+                <li><strong>Environmental Calculator:</strong> Calculate and visualize the carbon emissions resulting from your digital activities.</li>
+                <li><strong>Screen Usage Tracking:</strong> Monitor and assess your screen time to understand its environmental impact.</li>
+                <li><strong>Rewards and Challenges:</strong> Engage in challenges to reduce your carbon footprint and earn rewards.</li>
+                <li><strong>Educational Resources:</strong> Access valuable information and tips to promote sustainable digital practices.</li>
+            </ul>
+            <p>By raising awareness and encouraging responsible behavior, EcoTrack aims to contribute to a greener, more sustainable future.</p>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 EcoTrack. All rights reserved.</p>
+    </footer>
+</body>
+</html>
